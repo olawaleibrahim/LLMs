@@ -11,6 +11,9 @@ langchain-core = "^0.3.35"
 langchain-cli = "^0.0.35"
 google-genai = "^1.2.0"
 notebook = "^7.3.2"
+langchain-google-vertexai = "^2.0.13"
+langchain-google-community = {extras = ["vertexaisearch"], version = "^2.0.4"}
+langchain-google-cloud-sql-pg = "^0.12.1"
 
 
 [build-system]
