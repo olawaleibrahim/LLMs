@@ -1,0 +1,1 @@
+gsutil -m cp -R ./data gs://langchain-book-test-bucket/
