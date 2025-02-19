@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "genai-langchain-gcp"
+version = "0.1.0"
+description = ""
+authors = ["Olawale Ibrahim <ibrahim.olawale13@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+langchain-core = "^0.3.35"
+langchain-cli = "^0.0.35"
+google-genai = "^1.2.0"
+notebook = "^7.3.2"
+langchain-google-vertexai = "^2.0.13"
+langchain-google-community = { extras = ["docai"], version = "^2.0.4" }
+langchain-google-cloud-sql-pg = "^0.12.1"
+pypdf = "^5.3.0"
+google-api-python-client = "^2.161.0"
+google-auth-httplib2 = "^0.2.0"
+google-auth-oauthlib = "^1.2.1"
+google-cloud-vision = "^3.10.0"
+poethepoet = "0.29.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
