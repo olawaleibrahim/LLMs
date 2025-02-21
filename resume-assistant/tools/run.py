@@ -4,20 +4,19 @@ from pathlib import Path
 import click
 from loguru import logger
 
-from pipelines import scrape_webpage_pipeline
+from pipelines import (scrape_webpage_pipeline, 
+                       extract_resume_pipeline)
 
 
 @click.command(
     help="""
-Digital Research Assistant project CLI v0.0.1. 
+Resume Assistant project CLI v0.0.1. 
 
 Main entry point for the pipeline execution. 
 This entrypoint is where everything comes together.
 
 
-Run a pipeline with the required parameters. This executes
-all steps in the pipeline in the correct order using the orchestrator
-stack component that is configured in your active ZenML stack.
+Run a pipeline with the required parameters. 
 
 Examples:
 
@@ -29,9 +28,6 @@ Examples:
   # Run the pipeline without cache
   python run.py --no-cache
   
-  \b
-  # Run only the ETL pipeline
-  python run.py --only-etl
 
 """
 )
@@ -48,18 +44,31 @@ Examples:
     help="Whether to run the scrape job description pipeline.",
 )
 @click.option(
+    "--run-extract-resume-content",
+    is_flag=True,
+    default=False,
+    help="Whether to run the extract resume content pipeline.",
+)
+@click.option(
     "--url",
     default="https://job-boards.greenhouse.io/scaleai/jobs/4413274005",
     help="Filename of the ETL config file.",
 )
+@click.option(
+    "--user-resume-path",
+    default="Olawale_Machine_Learning_Engineer_Template.pdf",
+    help="Filename of user resume",
+)
 def main(
     no_cache: bool = False,
     run_scrape_job_description: bool = False,
-    run_etl: bool = False,
+    run_extract_resume_content: bool = False,
     url: str = "https://job-boards.greenhouse.io/scaleai/jobs/4413274005",
+    user_resume_path: str = "Olawale_Machine_Learning_Engineer_Template.pdf",
 ) -> None:
     assert (
         run_scrape_job_description
+        or run_extract_resume_content
     ), "Please specify an action to run."
 
 
@@ -68,6 +77,10 @@ def main(
     if run_scrape_job_description:
         job_description = scrape_webpage_pipeline(url)
         print(job_description)
+
+    if run_extract_resume_content:
+        resume_content = extract_resume_pipeline(user_resume_path)
+        print(resume_content)
 
 
 if __name__ == "__main__":
