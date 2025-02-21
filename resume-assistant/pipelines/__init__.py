@@ -1,7 +1,7 @@
-from .scrape_job_description import scrape_webpage_pipeline
+from .get_job_description import get_job_description_pipeline
 from .extract_resume_content import extract_resume_pipeline
 
 __all__ = [
-    "scrape_webpage_pipeline",
+    "get_job_description_pipeline",
     "extract_resume_pipeline"
 ]
