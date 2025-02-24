@@ -1,5 +1,5 @@
-from resume_assistant.application.dataset.extraction import scrape_webpage_content
-from resume_assistant.application.dataset.extraction import extract_job_description
+from resume_assistant.application.dataset.extraction import extract_job_description, scrape_webpage_content
+
 
 def get_job_description_pipeline(url):
     webpage_content = scrape_webpage_content(url)
