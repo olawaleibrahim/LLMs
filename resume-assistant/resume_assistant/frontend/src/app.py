@@ -25,49 +25,47 @@ main_content = dbc.Card(
                     dbc.CardBody([
                         dbc.Row([
                             dbc.Col([
-                                html.H5("Job Description"),
-                                dcc.Input(
-                                    id="left",
-                                    type="url",
-                                ),
-                                dcc.Upload([
-                                    'Drag and Drop or ',
-                                    html.A('Upload your resume')
-                                ], id="upload-file",
-                                    style={
-                                    'width': '100%',
-                                    'height': '100%',
-                                    'lineHeight': '100%',
-                                    'borderWidth': '100%',
-                                    'borderStyle': 'dashed',
-                                    'borderRadius': '1%',
-                                    'textAlign': 'center'
-                                }),
-                            ], width=3),
+                                dbc.Card([
+                                    dbc.CardBody([
+                                        html.H5("ATS Assistant"),
+                                        dcc.Input(
+                                            id="left",
+                                            type="url",
+                                        ),
+                                        dcc.Upload([
+                                            'Drag and Drop or ',
+                                            html.A('Upload your resume')
+                                        ], id="upload-file",
+                                            style={
+                                            'width': '100%',
+                                            'height': '100%',
+                                            'lineHeight': '100%',
+                                            'borderWidth': '100%',
+                                            'borderStyle': 'dashed',
+                                            'borderRadius': '1%',
+                                            'textAlign': 'center'
+                                        }),
+                                    ]),
+                                ], className="main-card"),
+                            ], width=3, className=""),
                             dbc.Col([
-                                html.H5("Resume Content"),
-                                dcc.Textarea(
-                                    id="middle",
-                                    className="mb-3",
-                                    style={"height": "80%"},
-                                    value="",
-                                ),
-                            ]),
-                            dbc.Col([
-                                html.H5("Resume Content"),
-                                dcc.Textarea(
-                                    id="right",
-                                    className="mb-3",
-                                    style={"height": "80%"},
-                                    value="",
-                                ),
-                            ]),
+                                dbc.Card([
+                                    dbc.CardBody([
+                                        html.H5("Resume Content"),
+                                        dcc.Textarea(
+                                            id="right",
+                                            className="mb-3",
+                                            style={"height": "80%"},
+                                            value="",
+                                        ),
+                                    ]),
+                                ], className="main-card"),], width=9, className=""),
                         ]),
                     ]),
                 ]),
             ]),
         ]),
-    ])
+    ], style={"background-color": "#07141F"})
 )
 
 

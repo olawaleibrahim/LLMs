@@ -16,7 +16,7 @@ def upload_to_gcs(user_resume_path, content=None):
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(consts.GCS_BUCKET_NAME)
     blob = bucket.blob(
-        f"resume-assistant/data/output/dev/pdfs/{user_resume_path}")
+        f"resume-assistant/data/input/dev/pdfs/{user_resume_path}")
     data_encode = content.encode("utf8").split(b";base64,")[1]
     data_decode = base64.decodebytes(data_encode)
     blob.upload_from_string(data_decode, content_type="application/pdf")
