@@ -5,11 +5,16 @@
     height: 90vh;
 }
 
-.main-column {
-    height: 100%;
+.content {
     margin: 1%;
-    background-color: #07141F;
-    border-radius: 5%,
+    background-color: #ffffff;
+    border-radius: 1%;
+    color: #07141F;
+    overflow-y: auto;
+}
+
+.heading {
+    text-align: left;
 }
 
 .main-card {
