@@ -6,6 +6,7 @@ import flask
 from waitress import serve
 
 from resume_assistant.application.dataset.upload import upload_to_gcs
+from resume_assistant.application.dataset.extraction import extract_job_description, scrape_webpage_content
 
 from . import app as home_app
 
@@ -47,6 +48,17 @@ page_2_layout = html.Div([
     html.Br(),
     dcc.Link('Go back to home', href='/')
 ])
+
+
+@app.callback(
+    Output("extracted-job-description", "children"),
+    Input("job-url", "value")
+)
+def update_job_description(url):
+
+    webpage_content = scrape_webpage_content(url)
+    job_description = extract_job_description(webpage_content)
+    return job_description
 
 
 @callback(Output('page-content', 'children'), Input('url', 'pathname'))

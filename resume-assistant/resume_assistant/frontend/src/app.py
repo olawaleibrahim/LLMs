@@ -27,37 +27,71 @@ main_content = dbc.Card(
                             dbc.Col([
                                 dbc.Card([
                                     dbc.CardBody([
-                                        html.H5("ATS Assistant"),
-                                        dcc.Input(
-                                            id="left",
-                                            type="url",
-                                        ),
-                                        dcc.Upload([
-                                            'Drag and Drop or ',
-                                            html.A('Upload your resume')
-                                        ], id="upload-file",
-                                            style={
-                                            'width': '100%',
-                                            'height': '100%',
-                                            'lineHeight': '100%',
-                                            'borderWidth': '100%',
-                                            'borderStyle': 'dashed',
-                                            'borderRadius': '1%',
-                                            'textAlign': 'center'
-                                        }),
+                                        html.H6("Paste job ad link"),
+                                        dbc.Row([
+                                            dcc.Input(
+                                                id="job-url",
+                                                type="url",
+                                            ),
+                                            dbc.Row(),
+                                            dcc.Upload([
+                                                'Drag and Drop or ',
+                                                html.A('Upload your resume')
+                                            ], id="upload-file",
+                                                style={
+                                                'width': '100%',
+                                                'height': '100%',
+                                                'lineHeight': '100%',
+                                                'borderWidth': '100%',
+                                                'borderStyle': 'dashed',
+                                                'borderRadius': '1%',
+                                                'textAlign': 'center'
+                                            }),
+                                            html.Button(
+                                                "Extract", id="extract-button", style={"width": "30%",
+                                                                                       "display": "block"}),
+                                        ], style={"height": "20%", "width": "100%"}),
+                                        dbc.Row([
+                                            html.H5("Job Description"),
+                                            html.Div([],
+                                                id="extracted-job-description")
+                                        ], className="content", style={"height": "60vh"}),
                                     ]),
                                 ], className="main-card"),
                             ], width=3, className=""),
                             dbc.Col([
                                 dbc.Card([
                                     dbc.CardBody([
-                                        html.H5("Resume Content"),
-                                        dcc.Textarea(
-                                            id="right",
-                                            className="mb-3",
-                                            style={"height": "80%"},
-                                            value="",
-                                        ),
+                                        html.H3("ATS ASSISTANT"),
+                                        dbc.Row([
+                                            dbc.Col([
+                                                html.H6(
+                                                    "Summary", className="heading")
+                                            ],
+                                                id="summary", className="content", width=3),
+                                            dbc.Col([
+                                                html.H6("Experience",
+                                                        className="heading"),
+                                                html.Div(id="experience")
+                                            ], className="content", width=8),
+                                        ], style={"height": "70%"}),
+                                        dbc.Row([
+                                            dbc.Col([
+                                                html.H6(
+                                                    "Skills", className="heading")
+                                            ],
+                                                id="skills", className="content", width=3),
+                                            dbc.Col([
+                                                html.H6(
+                                                    "Missing Keywords", className="heading")
+                                            ],
+                                                id="missing-keywords", className="content", width=4),
+                                            dbc.Col([
+                                                html.H6("Changes Made",
+                                                        className="heading")
+                                            ],
+                                                id="changes-made", className="content", width=4),
+                                        ], style={"height": "20%"}),
                                     ]),
                                 ], className="main-card"),], width=9, className=""),
                         ]),
