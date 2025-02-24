@@ -1,0 +1,21 @@
+.card {
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+    padding: 0%;
+    height: 90vh;
+}
+
+.main-column {
+    height: 100%;
+    margin: 1%;
+    background-color: #07141F;
+    border-radius: 5%,
+}
+
+.main-card {
+    background-color: #07141F;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    padding: 1%;
+    height: 85vh;
+}
