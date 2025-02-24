@@ -5,8 +5,14 @@ from dash import callback, no_update, dcc, html, Input, Output, State
 import flask
 from waitress import serve
 
+from resume_assistant.application.dataset.extraction import (extract_job_description,
+                                                             scrape_webpage_content)
 from resume_assistant.application.dataset.upload import upload_to_gcs
-from resume_assistant.application.dataset.extraction import extract_job_description, scrape_webpage_content
+import resume_assistant.application.processing.postprocess as postprocess
+from resume_assistant.application.rag.retriever import get_langchain_docs
+import resume_assistant.application.rag.templates as templates
+from resume_assistant.application.rag.utils import extract_content_from_documents
+from resume_assistant.models.model import get_model
 
 from . import app as home_app
 
@@ -56,9 +62,46 @@ page_2_layout = html.Div([
 )
 def update_job_description(url):
 
-    webpage_content = scrape_webpage_content(url)
-    job_description = extract_job_description(webpage_content)
-    return job_description
+    if url:
+        webpage_content = scrape_webpage_content(url)
+        job_description = extract_job_description(webpage_content)
+        return job_description
+    else:
+        return no_update
+
+
+@app.callback(
+    Output('summary', 'children'),
+    Output('experience', 'children'),
+    Output('skills', 'children'),
+    Output('missing-keywords', 'children'),
+    Output('changes-made', 'children'),
+    Input('upload-file', 'contents'),
+    Input('extracted-job-description', 'value'),
+    State('upload-file', 'filename'),
+)
+def save_uploaded_file(file_content, job_description, filename):
+
+    ctx = dash.callback_context
+    if filename and "upload-file" in ctx.triggered[0]["prop_id"]:
+        public_url = upload_to_gcs(filename, file_content)
+        documents = get_langchain_docs(filename)
+        content = extract_content_from_documents(documents)
+        chat_model = get_model()
+        ats_chain = templates.ATS_TEMPLATE | chat_model
+        ats_result = ats_chain.invoke({"job_description": job_description,
+                                       "resume_content": content})
+
+        json_ats_result = postprocess.get_json_from_result(ats_result)
+        summary = json_ats_result["Summary"]
+        experience = json_ats_result["Experience"]
+        skills = json_ats_result["Skills"]
+        missing_kws = json_ats_result["Missing Keywords"]
+        changes_made = json_ats_result["Changes Made"]
+
+        return summary, experience, skills, missing_kws, changes_made
+    else:
+        return no_update
 
 
 @callback(Output('page-content', 'children'), Input('url', 'pathname'))
@@ -70,21 +113,6 @@ def display_page(pathname):
         return page_2_layout
     else:
         return index_page
-
-
-@app.callback(
-    Output('middle', 'value'),
-    Input('upload-file', 'contents'),
-    State('upload-file', 'filename'),
-)
-def save_uploaded_file(file_content, filename):
-
-    ctx = dash.callback_context
-    if filename and "upload-file" in ctx.triggered[0]["prop_id"]:
-        print("filename", filename)
-        public_url = upload_to_gcs(filename, file_content)
-
-        return public_url
 
 
 PORT = str(8066)
