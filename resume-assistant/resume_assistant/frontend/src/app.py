@@ -65,29 +65,30 @@ main_content = dbc.Card(
                                         dbc.Row([
                                             dbc.Col([
                                                 html.H6("Summary"),
-                                                html.Div([], id="summary"),
-                                            ], className="content", width=3),
+                                                html.Div(
+                                                    [""""""], id="summary"),
+                                            ], className="content", style={"height": "95%"}, width=3),
                                             dbc.Col([
                                                 html.H6("Experience"),
                                                 html.Div([], id="experience"),
-                                            ], className="content", width=8),
-                                        ], style={"height": "70%"}),
+                                            ], className="content", style={"height": "95%"}, width=8),
+                                        ], style={"height": "60vh"}),
                                         dbc.Row([
                                             dbc.Col([
                                                 html.H6("Skills"),
                                                 html.Div([], id="skills"),
-                                            ], className="content", width=3),
+                                            ], className="content", style={"height": "60%"}, width=3),
                                             dbc.Col([
                                                 html.H6("Missing Keywords"),
                                                 html.Div(
                                                     [], id="missing-keywords"),
-                                            ], className="content", width=4),
+                                            ], className="content", style={"height": "60%"}, width=4),
                                             dbc.Col([
                                                 html.H6("Changes Made"),
                                                 html.Div(
                                                     [], id="changes-made"),
-                                            ], className="content", width=4),
-                                        ], style={"height": "20%"}),
+                                            ], className="content", style={"height": "60%"}, width=4),
+                                        ], style={"height": "20vh"}),
                                     ]),
                                 ], className="main-card"),], width=9, className=""),
                         ]),
