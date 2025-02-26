@@ -1,6 +1,12 @@
 data/
-mlruns/
+*/data/
+analytics-ai/mlruns/
 0/
+*templates.py
+*.pdf
+*.docx
+*.txt
+*.bashrc
 
 digital-research-assistant/notebooks/
 digital-research-assistant/output/
