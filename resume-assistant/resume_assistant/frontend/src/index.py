@@ -80,7 +80,7 @@ def update_job_description(url):
     Input('extracted-job-description', 'value'),
     State('upload-file', 'filename'),
 )
-def save_uploaded_file(file_content, job_description, filename):
+def triggerATSApi(file_content, job_description, filename):
 
     ctx = dash.callback_context
     if filename and "upload-file" in ctx.triggered[0]["prop_id"]:
@@ -115,7 +115,7 @@ def display_page(pathname):
         return index_page
 
 
-PORT = str(8066)
+PORT = str(8080)
 
 if __name__ == '__main__':
     print("start")
